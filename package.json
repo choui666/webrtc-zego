@@ -1,0 +1,22 @@
+{
+  "name": "webrtc-zego",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./ -p 8088 -S -C cert.pem -K key.pem"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/choui666/webrtc-zego.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/choui666/webrtc-zego/issues"
+  },
+  "homepage": "https://github.com/choui666/webrtc-zego#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}

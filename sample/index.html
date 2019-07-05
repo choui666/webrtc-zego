@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./lib/bootstrap.min.css"/>
+    <style>
+        video {
+            width: 320px;
+            height: auto;
+        }
+
+        #previewLabel {
+            display: block;
+        }
+    </style>
+    <title>zego jssdk demo</title>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 1%;">
+
+    <div class="row">
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="audioList">音频设备</label>
+                <select class="form-control d-inline" id="audioList" >
+
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">视频设备</label>
+                <select class="form-control d-inline" id="videoList" >
+
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">房间号</label>
+                <input type="email" class="form-control d-inline" id="roomId"
+                       aria-describedby="emailHelp" placeholder="请输入房间号" value="128">
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">推拉流监听间隔</label>
+                <input type="email" class="form-control d-inline" id="monitor"
+                       aria-describedby="emailHelp" placeholder="请输间隔" value="3000">
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">推拉流附加信息</label>
+                <input type="email" class="form-control d-inline" id="publishExtra"
+                       aria-describedby="emailHelp" placeholder="请输入附加信息" value="">
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">房间人员</label>
+                <select class="form-control d-inline" id="memberList">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">推流编码</label>
+                <select class="form-control d-inline" id="videoCodeType">
+                    <option value="H264">H264</option>
+                    <option value="VP8">VP8</option>
+                    <option value="VP9">VP9</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">拉流编码</label>
+                <select class="form-control d-inline" id="playVideoCodeType">
+                    <option value="H264">H264</option>
+                    <option value="VP8">VP8</option>
+                    <option value="VP9">VP9</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">减噪</label>
+                <select class="form-control d-inline" id="noiseSuppression" >
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">自动增益</label>
+                <select class="form-control d-inline" id="autoGainControl" >
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">回声消除</label>
+                <select class="form-control d-inline" id="echoCancellation" >
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                </select>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="row">
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="audioList">推流质量</label>
+                <select class="form-control d-inline" id="videoQuality" >
+                    <option value="1" selected>标清</option>
+                    <option value="2" >高清</option>
+                    <option value="3">超清</option>
+                    <option value="4">自定义</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">自定义宽</label>
+                <input type="email" class="form-control d-inline" id="width"
+                       aria-describedby="emailHelp" placeholder="请输间隔" value="720">
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">自定义高</label>
+                <input type="email" class="form-control d-inline" id="height"
+                       aria-describedby="emailHelp" placeholder="请输间隔" value="1280">
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">自定义帧率</label>
+                <input type="email" class="form-control d-inline" id="frameRate"
+                       aria-describedby="emailHelp" placeholder="请输间隔" value="20">
+            </div>
+        </div>
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">自定义视频码率</label>
+                <input type="email" class="form-control d-inline" id="bitRate"
+                       aria-describedby="emailHelp" placeholder="请输间隔(k)" value="1500">
+            </div>
+        </div>
+
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="videoList">自定义音频码率</label>
+                <input type="email" class="form-control d-inline" id="audioBitRateInput"
+                       aria-describedby="emailHelp" placeholder="请输入音频码率" value="48000">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <button type="button" id="createRoom" class="btn btn-primary btn-sm">创建房间</button>
+            <button type="button" id="openRoom" class="btn btn-primary btn-sm">进入房间</button>
+            <button type="button" id="stopPublish" class="btn btn-secondary btn-sm">停止推流</button>
+            <button type="button" id="leaveRoom" class="btn btn-secondary btn-sm">退出</button>
+            <button type="button" id="toggleCamera" class="btn btn-primary btn-sm">启用/关闭摄像头</button>
+            <button type="button" id="toggleSpeaker" class="btn btn-primary btn-sm">启用/关闭麦克风</button>
+            <button type="button" id="monitorTimer" class="btn btn-primary btn-sm">监听间隔修改</button>
+            <button type="button" id="extraInfo" class="btn btn-primary btn-sm">推流信息修改</button>
+            <button type="button" id="mixStream" class="btn btn-primary btn-sm">混流</button>
+            <button type="button" id="stopMixStream" class="btn btn-primary btn-sm">stop混流</button>
+            <button type="button" id="requestJoinLive" class="btn btn-primary btn-sm">请求连麦</button>
+            <button type="button" id="endJoinLive" class="btn btn-primary btn-sm">结束连麦</button>
+            <button type="button" id="inviteJoinLive" class="btn btn-primary btn-sm">邀请连麦</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 1%;">
+        <div class="col-sm">
+            <button type="button" id="screenShot" class="btn btn-primary btn-sm">捕捉屏幕</button>
+            <button type="button" id="stopScreenShot" class="btn btn-primary btn-sm">停止捕捉</button>
+            <button type="button" id="sendCustomrMsg" class="btn btn-primary btn-sm">发送自定义消息</button>
+            <button type="button" id="sendRoomMsg" class="btn btn-primary btn-sm">发送房间消息</button>
+            <button type="button" id="ReliableMessage" class="btn btn-primary btn-sm">Reliable消息</button>
+            <button type="button" id="RelayMessage" class="btn btn-primary btn-sm">Relay</button>
+            <button type="button" id="BigRoomMessage" class="btn btn-primary btn-sm">大房间消息</button>
+
+            <button type="button" id="getAudioInfo" class="btn btn-primary btn-sm">获取音频信息</button>
+            <button type="button" id="stopgetAudioInfo" class="btn btn-primary btn-sm">stop获取音频信息</button>
+
+            <button type="button" id="externalCapture" class="btn btn-primary btn-sm">捕捉外部数据源</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 1%;">
+        <div class="col-sm">
+            <button type="button" id="snapshot" class="btn btn-primary btn-sm">截屏</button>
+            <button type="button" id="saveSnapshot" class="btn btn-primary btn-sm">截屏并下载</button>
+            <button type="button" id="startRecord" class="btn btn-primary btn-sm">开始录制</button>
+            <button type="button" id="pauseRedord" class="btn btn-primary btn-sm">暂停录制</button>
+            <button type="button" id="resumeRecord" class="btn btn-primary btn-sm">恢复录制</button>
+            <button type="button" id="downloadRecord" class="btn btn-primary btn-sm">下载录制</button>
+            <button type="button" id="getPCM" class="btn btn-primary btn-sm">PCM</button>
+            <button type="button" id="getWAV" class="btn btn-primary btn-sm">WAV</button>
+            <button type="button" id="MixAudio" class="btn btn-primary btn-sm">混音</button>
+            <button type="button" id="stopMixAudio" class="btn btn-primary btn-sm">停止混音</button>
+            <button type="button" id="changeOutPut" class="btn btn-primary btn-sm">改变输出设备</button>
+            <button type="button" id="preloadEffect" class="btn btn-primary btn-sm">加载音效</button>
+            <button type="button" id="playEffect" class="btn btn-primary btn-sm">播放音效</button>
+            <button type="button" id="pauseEffect" class="btn btn-primary btn-sm">暂停音效</button>
+            <button type="button" id="resumeEffect" class="btn btn-primary btn-sm">恢复音效</button>
+            <button type="button" id="unloadEffect" class="btn btn-primary btn-sm">删除音效</button>
+            <button type="button" id="testMixAudio" class="btn btn-primary btn-sm">混音测试</button>
+            <button type="button" id="getLocalStream" class="btn btn-primary btn-sm">预览视轨信息</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm">
+            <label id="previewLabel"></label>
+            <video id="previewVideo" autoplay muted playsinline controls>
+                <!--<source src="./big_buck_bunny.mp4" type="video/mp4"/>-->
+            </video>
+<!--            <audio id="mixAudio0" src="./lib/bike.mp3" controls></audio>-->
+<!--            <audio id="mixAudio1" src="./lib/beauty.mp3" controls></audio>-->
+        </div>
+        <div class="col-sm remoteVideo">
+            <video autoplay muted playsinline></video>
+        </div>
+
+        <div class="col-sm">
+            <video id="extenerVideo" src="./test.mp4"  muted playsinline controls></video>
+        </div>
+    </div>
+
+    <div class="row">
+        <img id="snapshotImg" src=""/>
+    </div>
+
+     <!-- Button trigger modal -->
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="liveConfirm" style="display:none">
+      连麦弹窗
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <strong class="text-gray-dark" id="exampleModalLabel">收到连麦请求</strong>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" id="liveRefuse" data-dismiss="modal">拒绝连麦</button>
+            <button type="button" class="btn btn-primary btn-sm"  id="liveAgree" data-dismiss="modal">同意连麦</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!--<video   autoplay  playsinline controls>-->
+<!--<source src="./big_buck_bunny.mp4" type="video/mp4"/>-->
+<!--</video>-->
+
+<!--<video   autoplay  playsinline controls>-->
+<!--<source src="./big_buck_bunny.mp4" type="video/mp4"/>-->
+<!--</video>-->
+<!--src="https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"-->
+</body>
+<!-- Bootstrap js -->
+<script src="./lib/jquery-3.3.1.min.js"></script>
+<script src="./lib/popper.min.js"></script>
+<script src="./lib/bootstrap.min.js"></script>
+<script src="./lib/base64.min.js"></script>
+<script src="./lib/md5.min.js"></script>
+<!--&lt;!&ndash; zego js sdk &ndash;&gt;-->
+<!--<script src="../dist/jZego-rtc.js"></script>-->
+<script src="./lib/jZego-rtc.js"></script>
+<!--<script src="./lib/jZego-rtc-1.0.6.js"></script>-->
+<!--<script src="../node_modules/choui-zego-rtc/jZego-rtc.js"></script>-->
+<script src="index.js?v=007"></script>
+</html>
