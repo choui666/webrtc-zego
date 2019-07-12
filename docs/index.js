@@ -124,7 +124,7 @@ function openRoom(roomId, type) {
     }
 
     function loginSuccess(streamList, type) {
-         zg.setCustomSignalUrl('wss://webrtctest.zego.im/ws?a=webrtc-demo');
+        // zg.setCustomSignalUrl('wss://webrtctest.zego.im/ws?a=webrtc-demo');
         isLogin = true;
         streamType = type;
 
