@@ -139,7 +139,7 @@ function openRoom(roomId, type) {
 
         $('.remoteVideo').html('')
         for (var index = 0; index < useLocalStreamList.length; index++) {
-            if (streamType !== 1) {
+            if (streamType !== 1||true) {
                 $('.remoteVideo').append($('<video  autoplay muted playsinline controls ></video>'));
                 play(useLocalStreamList[index].stream_id, $('.remoteVideo video:eq(' + index + ')')[0]);
             }
@@ -373,7 +373,7 @@ function listen() {
                 for (var i = 0; i < streamList.length; i++) {
                     console.info(streamList[i].stream_id + ' was added');
                     useLocalStreamList.push(streamList[i]);
-                    if (streamType !== 1) {
+                    if (streamType !== 1||true) {
                         $('.remoteVideo').append($('<video  autoplay muted playsinline></video>'));
                         play(streamList[i].stream_id, $('.remoteVideo video:last-child')[0]);
                     }
