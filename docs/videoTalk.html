@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./lib/bootstrap.min.css"/>
+    <style>
+        video {
+            width: 320px;
+            height: auto;
+        }
+
+        #previewLabel {
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+        }
+    </style>
+    <title>zego jssdk demo</title>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 1%;">
+
+    <div class="row">
+        <div class="col-sm col-3">
+            <div class="form-group">
+                <label for="roomId">房间号</label>
+                <input type="email" class="form-control d-inline" id="roomId"
+                       aria-describedby="emailHelp" placeholder="请输入房间号" value="456">
+                <button type="button" id="startVideoTalk" class="btn btn-primary btn-sm">videoTalk</button>
+                <button type="button" id="leaveRoom" class="btn btn-secondary btn-sm">退出</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm">
+            <label id="previewLabel"></label>
+            <video id="previewVideo" autoplay muted playsinline controls>
+            </video>
+        </div>
+        <div class="col-sm remoteVideo">
+            <video autoplay muted playsinline></video>
+        </div>
+    </div>
+</div>
+
+<!--<video   autoplay  playsinline controls>-->
+<!--<source src="./big_buck_bunny.mp4" type="video/mp4"/>-->
+<!--</video>-->
+
+<!--<video   autoplay  playsinline controls>-->
+<!--<source src="./big_buck_bunny.mp4" type="video/mp4"/>-->
+<!--</video>-->
+<!--src="https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"-->
+</body>
+<!-- Bootstrap js -->
+<script src="./lib/jquery-3.3.1.min.js"></script>
+<script src="./lib/popper.min.js"></script>
+<script src="./lib/bootstrap.min.js"></script>
+<!--&lt;!&ndash; zego js sdk &ndash;&gt;-->
+<!--<script src="../dist/jZego-rtc.js"></script>-->
+<script src="./lib/jZego-rtc.js?v=001"></script>
+<!--<script src="./lib/jZego-rtc-1.0.6.js"></script>-->
+<!--<script src="../node_modules/choui-zego-rtc/jZego-rtc.js"></script>-->
+<script src="./videoTalk.js?v=002"></script>
+</html>
