@@ -185,6 +185,11 @@ $(function () {
             leaveRoom();
         });
 
+        $('#openAudio').click(function () {
+            $('.remoteVideo video:eq(0)')[0].muted = false;
+            $('.remoteVideo video:eq(0)')[0].play();
+        });
+
     }
 });
 
