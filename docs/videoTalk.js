@@ -117,9 +117,11 @@ function listen() {
             if (type == 0) {
                 console.info('play  success');
                 $('.remoteVideo video:eq(0)')[0].muted = false;
-                $('.remoteVideo video:eq(0)')[0].play();
-                $('.remoteVideo video:eq(0)')[0].play();
-                $('#version').html('782')
+                setTimeout(function () {
+                    $('.remoteVideo video:eq(0)')[0].play();
+                },1000)
+
+                $('#version').html('785')
             } else if (type == 2) {
                 console.info('play retry');
             } else {
