@@ -39,18 +39,19 @@ function init() {
     // 监听sdk回掉
     listen();
 }
-function getPreviewConfig(){
-    return  {
-        "audio":   true,
-        "audioInput":   null,
-        "video":  true,
-        "videoInput":   null,
-        "videoQuality":   2,
+
+function getPreviewConfig() {
+    return {
+        "audio": true,
+        "audioInput": null,
+        "video": true,
+        "videoInput": null,
+        "videoQuality": 2,
         "horizontal": true
     }
 }
 
-function openRoom(roomId, type,isVideoTalk) {
+function openRoom(roomId, type, isVideoTalk) {
     if (isLogin) {
         return leaveRoom();
     }
@@ -72,16 +73,16 @@ function openRoom(roomId, type,isVideoTalk) {
                 alert('get token failed')
             } else {
                 console.log('gettoken success');
-                startLogin(token, type,isVideoTalk)
+                startLogin(token, type, isVideoTalk)
             }
         }, 'text');
 
 
     //login
-    function startLogin(token, type,isVideoTalk) {
+    function startLogin(token, type, isVideoTalk) {
         zg.login(roomId, type, token, function (streamList) {
             console.log('login success');
-            loginSuccess(streamList, type,isVideoTalk);
+            loginSuccess(streamList, type, isVideoTalk);
         }, function (err) {
             loginFailed(err);
         })
@@ -93,14 +94,14 @@ function openRoom(roomId, type,isVideoTalk) {
 
     }
 
-    function loginSuccess(streamList, type,isVideoTalk) {
-        if(isVideoTalk){
+    function loginSuccess(streamList, type, isVideoTalk) {
+        if (isVideoTalk) {
             zg.startVideoTalk({
                 streamList,
                 previewConfig: getPreviewConfig(),
-                localVideo:previewVideo,
-                remoteVide:$('.remoteVideo video:eq(0)')[0],
-                streamId:_config.idName
+                localVideo: previewVideo,
+                remoteVide: $('.remoteVideo video:eq(0)')[0],
+                streamId: _config.idName
             });
             return;
         }
@@ -118,24 +119,11 @@ function listen() {
                 $('.remoteVideo video:eq(0)')[0].muted = false;
                 $('.remoteVideo video:eq(0)')[0].play();
                 $('.remoteVideo video:eq(0)')[0].play();
+                $('#version').html('782')
             } else if (type == 2) {
                 console.info('play retry');
             } else {
-
                 console.error("play error " + error.msg);
-
-                var _msg = error.msg;
-                if (error.msg.indexOf('server session closed, reason: ') > -1) {
-                    var code = error.msg.replace('server session closed, reason: ', '');
-                    if (code == 21) {
-                        _msg = '音频编解码不支持(opus)';
-                    } else if (code == 22) {
-                        _msg = '视频编解码不支持(H264)'
-                    } else if (code == 20) {
-                        _msg = 'sdp 解释错误';
-                    }
-                }
-                alert('拉流失败,reason = ' + _msg);
             }
 
         },
@@ -222,10 +210,10 @@ $(function () {
 
             setTimeout(function () {
                 var end = new Date().getTime();
-                alert(end-start);
-                $('#otherVideo').attr('src','./lib/chrome.webm');
+                alert(end - start);
+                $('#otherVideo').attr('src', './lib/chrome.webm');
                 $('#otherVideo')[0].play();
-            },10000);
+            }, 10000);
         });
 
     }
