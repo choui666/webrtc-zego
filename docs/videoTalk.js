@@ -119,7 +119,7 @@ function listen() {
                 $('.remoteVideo video:eq(0)')[0].muted = false;
                 setTimeout(function () {
                     $('.remoteVideo video:eq(0)')[0].play();
-                },2000)
+                },3000)
 
                 $('#version').html('788')
             } else if (type == 2) {
