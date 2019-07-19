@@ -112,6 +112,33 @@ function openRoom(roomId, type,isVideoTalk) {
 
 function listen() {
     var _config = {
+        onPlayStateUpdate: function (type, streamid, error) {
+            if (type == 0) {
+                console.info('play  success');
+                $('.remoteVideo video:eq(0)')[0].muted = false;
+                $('.remoteVideo video:eq(0)')[0].play();
+                $('.remoteVideo video:eq(0)')[0].play();
+            } else if (type == 2) {
+                console.info('play retry');
+            } else {
+
+                console.error("play error " + error.msg);
+
+                var _msg = error.msg;
+                if (error.msg.indexOf('server session closed, reason: ') > -1) {
+                    var code = error.msg.replace('server session closed, reason: ', '');
+                    if (code == 21) {
+                        _msg = '音频编解码不支持(opus)';
+                    } else if (code == 22) {
+                        _msg = '视频编解码不支持(H264)'
+                    } else if (code == 20) {
+                        _msg = 'sdp 解释错误';
+                    }
+                }
+                alert('拉流失败,reason = ' + _msg);
+            }
+
+        },
         onKickOut: function (error) {
             console.warn("onKickOut " + JSON.stringify(error));
             if (error.code === 'VideoTalkOut') {
@@ -188,6 +215,17 @@ $(function () {
         $('#openAudio').click(function () {
             $('.remoteVideo video:eq(0)')[0].muted = false;
             $('.remoteVideo video:eq(0)')[0].play();
+        });
+
+        $('#openVideo').click(function () {
+            var start = new Date().getTime();
+
+            setTimeout(function () {
+                var end = new Date().getTime();
+                alert(end-start);
+                $('#otherVideo').attr('src','./lib/chrome.webm');
+                $('#otherVideo')[0].play();
+            },10000);
         });
 
     }
