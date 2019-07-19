@@ -119,9 +119,9 @@ function listen() {
                 $('.remoteVideo video:eq(0)')[0].muted = false;
                 setTimeout(function () {
                     $('.remoteVideo video:eq(0)')[0].play();
-                },1000)
+                },2000)
 
-                $('#version').html('785')
+                $('#version').html('788')
             } else if (type == 2) {
                 console.info('play retry');
             } else {
