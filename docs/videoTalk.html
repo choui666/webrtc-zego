@@ -32,11 +32,11 @@
             <div class="form-group">
                 <label for="roomId">房间号</label>
                 <input type="email" class="form-control d-inline" id="roomId"
-                       aria-describedby="emailHelp" placeholder="请输入房间号" value="682">
+                       aria-describedby="emailHelp" placeholder="请输入房间号" value="684">
                 <button type="button" id="startVideoTalk" class="btn btn-primary btn-sm">videoTalk</button>
                 <button type="button" id="leaveRoom" class="btn btn-secondary btn-sm">退出</button>
-<!--                <button type="button" id="openAudio" class="btn btn-primary btn-sm">播放声音</button>-->
-<!--                <button type="button" id="openVideo" class="btn btn-primary btn-sm">播放视频</button>-->
+                <!--                <button type="button" id="openAudio" class="btn btn-primary btn-sm">播放声音</button>-->
+                <!--                <button type="button" id="openVideo" class="btn btn-primary btn-sm">播放视频</button>-->
                 <button type="button" onclick="location.href=location.href" class="btn btn-primary btn-sm">刷新</button>
             </div>
         </div>
@@ -46,13 +46,13 @@
     <div class="row">
         <div class="col-sm">
             <label id="previewLabel"></label>
-            <video id="previewVideo" muted autoplay  playsinline controls>
+            <video id="previewVideo" muted autoplay playsinline controls>
             </video>
         </div>
         <div class="col-sm remoteVideo">
-            <video autoplay  playsinline controls></video>
+            <video muted autoplay playsinline controls></video>
         </div>
-<!--        <video id="otherVideo"    playsinline  controls></video>-->
+        <!--        <video id="otherVideo"    playsinline  controls></video>-->
     </div>
     <div id="version"></div>
 </div>
@@ -124,8 +124,9 @@
             "audioInput": null,
             "video": true,
             "videoInput": null,
-            "videoQuality": 2,
-            "horizontal": true
+            "videoQuality": 3,
+            "horizontal": true,
+            facingMode: "user"
         }
     }
 
@@ -180,10 +181,34 @@
                     localVideo: previewVideo,
                     remoteVide: $('.remoteVideo video:eq(0)')[0],
                     streamId: _config.idName
+                },(errMsg)=>{
+                    console.error(errMsg);
                 });
-                $('.remoteVideo video:eq(0)')[0].onloadedmetadata = function(e) {
-                    $('.remoteVideo video:eq(0)')[0].play();
+                $('.remoteVideo video:eq(0)')[0].onloadedmetadata = function (e) {
+                    $('#version').html('播放状态0'+ $('.remoteVideo video:eq(0)')[0].paused);
+                    $('.remoteVideo video:eq(0)')[0].muted = false;
+                    var playPromise = $('.remoteVideo video:eq(0)')[0].play();
+
+                   // alert(playPromise);
+                    playPromise.then(function (re) {
+                        console.log(re);
+                        //$('#version').html(re?re:'suc')
+                    },function (res) {
+                        console.log(res);
+                        $('#version').html(res?res:'fail')
+                    }).catch(error => {
+                        // Autoplay was prevented.
+                        // Show a "Play" button so that user can start playback.
+                        $('#version').html(error?error:'error')
+                    });
                 };
+                // previewVideo.onloadedmetadata = function (e) {
+                //     previewVideo.play();
+                // };
+
+                setInterval(function () {
+                    $('#version').html('播放状态'+ $('.remoteVideo video:eq(0)')[0].paused);
+                },3000)
                 return;
             }
 
@@ -277,33 +302,36 @@
         console.log(ZegoClient.getCurrentVersion());
         if (ZegoClient.isSupportWebrtc()) {
 
-            //初始化sdk
-            init();
+            ZegoClient.supportVideoCodeType(({H264,VP8})=>{
+                if(H264|VP8){
+                    //初始化sdk
+                    init();
 
-            $('#startVideoTalk').click(function () {
-                openRoom($('#roomId').val(), 1, true);
+                    $('#startVideoTalk').click(function () {
+                        openRoom($('#roomId').val(), 1, true);
+                    });
+
+                    $('#leaveRoom').click(function () {
+                        leaveRoom();
+                    });
+
+                    $('#openAudio').click(function () {
+                        $('.remoteVideo video:eq(0)')[0].muted = false;
+                        $('.remoteVideo video:eq(0)')[0].play();
+                    });
+
+                    $('#openVideo').click(function () {
+                        var start = new Date().getTime();
+
+                        setTimeout(function () {
+                            var end = new Date().getTime();
+                            alert(end - start);
+                            $('#otherVideo').attr('src', './lib/chrome.webm');
+                            $('#otherVideo')[0].play();
+                        }, 10000);
+                    });
+                }
             });
-
-            $('#leaveRoom').click(function () {
-                leaveRoom();
-            });
-
-            $('#openAudio').click(function () {
-                $('.remoteVideo video:eq(0)')[0].muted = false;
-                $('.remoteVideo video:eq(0)')[0].play();
-            });
-
-            $('#openVideo').click(function () {
-                var start = new Date().getTime();
-
-                setTimeout(function () {
-                    var end = new Date().getTime();
-                    alert(end - start);
-                    $('#otherVideo').attr('src', './lib/chrome.webm');
-                    $('#otherVideo')[0].play();
-                }, 10000);
-            });
-
         }
     });
 
