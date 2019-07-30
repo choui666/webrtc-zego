@@ -602,11 +602,21 @@ function getPcm() {
 
 
 $(function () {
-
     console.log(ZegoClient.getCurrentVersion());
-    if (ZegoClient.isSupportWebrtc()) {
+    console.log('RTCPeerConnection',window['RTCPeerConnection']);
+    console.log('mozRTCPeerConnection',window['mozRTCPeerConnection']);
+    console.log('webkitRTCPeerConnection',window['webkitRTCPeerConnection']);
+    console.log('getUserMedia',window['getUserMedia']);
+    console.log('webkitGetUserMedia',window['webkitGetUserMedia']);
+    console.log('msGetUserMedia',window['msGetUserMedia']);
+    console.log('mozGetUserMedia',window['mozGetUserMedia']);
+    console.log('mediaDevices',window['mediaDevices']);
+    console.log('WebSocket',window['WebSocket']);
 
 
+
+
+    if (ZegoClient.isSupportWebrtc()||true) {
         //初始化sdk
         init();
 
@@ -1063,7 +1073,11 @@ $(function () {
             }
         })
 
+    }else{
+        console.error('notsupport wertc')
     }
+
+
     ZegoClient.isSupportH264(issupport => {
         console.log(issupport);
     }, err => {
